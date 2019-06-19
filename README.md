@@ -37,8 +37,11 @@ Usage
 
 To install NxFilter and the rc startup script:
 
-1. Log in to the pfSense command line shell as root.
-2. Run these commands, which downloads the install script from this Github repository and then executes it with sh:
+1. Log into the pfSense webConfigurator(System-Advanced-Admin Access) and change the TCP port to something other than port 80 and disable the WebGUI redirect rule.  NxFilter GUI and block page will need to use port 80.
+2. In the webConfigurator, disable the DNS resolver(Services-DNS Resolver-General Settings).  NxFilter provides filtering DNS services on port 53.
+3. In the webConfigurator, create firewall rules(Firewall-Rules-LAN) to allow access to LAN address for NxFilter udp ports 53, 1813 and tcp ports 80, 443, 19002:19004
+4. Log in to the pfSense command line shell as root.
+5. Run these commands, which downloads the install script from this Github repository and then executes it with sh:
 
   ```
     curl -L -O 'https://raw.githubusercontent.com/DeepWoods/nxfilter-pfsense/master/install-nxfilter.sh' 
