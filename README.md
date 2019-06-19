@@ -6,7 +6,7 @@ A script that installs NxFilter software on pfSense
 Purpose
 -------
 
-The objective of this project is to develop and maintain a script that installs [NxFilter](https://www.nxfilter.org/p3/) NxFilter DNS based web filter software on FreeBSD-based systems, particularly the [pfSense](http://www.pfsense.org/) firewall.
+The objective of this project is to develop and maintain a script that installs [NxFilter](https://www.nxfilter.org/p3/) DNS based web filter software on FreeBSD-based systems, particularly the [pfSense](http://www.pfsense.org/) firewall.
 
 Status
 ------
@@ -38,10 +38,10 @@ Usage
 To install NxFilter and the rc startup script:
 
 1. Log in to the pfSense command line shell as root.
-2. Run these commands, which downloads the install script from Github and then executes it with sh:
+2. Run these commands, which downloads the install script from this Github repository and then executes it with sh:
 
   ```
-    fetch -o - https://raw.githubusercontent.com/DeepWoods/nxfilter-pfsense/master/install-nxfilter.sh 
+    curl -L -O 'https://raw.githubusercontent.com/DeepWoods/nxfilter-pfsense/master/install-nxfilter.sh' 
     sh install-nxfilter.sh
   ```
 
