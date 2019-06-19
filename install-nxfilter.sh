@@ -3,6 +3,7 @@
 # install-nxfilter.sh <version>
 # Installs NxFilter DNS filter software on pfSense.
 
+clear
 # The latest version of NxFilter:
 NXFILTER_VERSION=$1
 if [ -z "$NXFILTER_VERSION" ]; then
@@ -26,7 +27,7 @@ fi
 NXFILTER_SOFTWARE_URI="http://pub.nxfilter.org/nxfilter-${NXFILTER_VERSION}.zip"
 
 # service script
-SERVICE_SCRIPT_URI="https://raw.githubusercontent.com/DeepWoods/nxfilter-pfsense/master/rc.d/nxfilter.sh"
+SERVICE_SCRIPT_URI="https://raw.githubusercontent.com/DeepWoods/nxfilter-pfsense/master/rc.d/nxfilter"
 
 
 # If pkg-ng is not yet installed, bootstrap it:
@@ -52,9 +53,9 @@ FREEBSD_PACKAGE_URL="https://pkg.freebsd.org/${ABI}/latest/All/"
 FREEBSD_PACKAGE_LIST_URL="https://pkg.freebsd.org/${ABI}/latest/packagesite.txz"
 
 # Stop NxFilter if it's already running
-if [ -f /usr/local/etc/rc.d/nxfilter.sh ]; then
+if [ -f /usr/local/etc/rc.d/nxfilter ]; then
   echo -n "Stopping the NxFilter service..."
-  /usr/sbin/service nxfilter.sh stop
+  /usr/sbin/service nxfilter stop
   echo " ok"
 fi
 
@@ -159,11 +160,11 @@ echo " ok"
 
 # Fetch the service script from github:
 echo -n "Downloading service script..."
-/usr/bin/fetch -o /usr/local/etc/rc.d/nxfilter.sh ${SERVICE_SCRIPT_URI}
+/usr/bin/fetch -o /usr/local/etc/rc.d/nxfilter ${SERVICE_SCRIPT_URI}
 echo " ok"
 
 # add execute permissions
-chmod +x /usr/local/etc/rc.d/nxfilter.sh
+chmod +x /usr/local/etc/rc.d/nxfilter
 chmod +x /usr/local/nxfilter/bin/*.sh
 
 # Add the startup variable to rc.conf.local.
@@ -176,5 +177,5 @@ if [ ! -f /etc/rc.conf.local ] || [ $(grep -c nxfilter_enable /etc/rc.conf.local
 fi
 
 echo -n "Starting the NxFilter service..."
-/usr/sbin/service nxfilter.sh start
+/usr/sbin/service nxfilter start
 echo " All done!"

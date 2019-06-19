@@ -55,14 +55,14 @@ To start and stop NxFilter, use the `service` command from the command line.
 - To start NxFilter:
 
   ```
-    service nxfilter.sh start
+    service nxfilter start
   ```
   NxFilter takes a minute or two to start the web interface. The 'start' command exits immediately while the startup continues in the background.
 
 - To stop NxFilter:
 
   ```
-    service nxfilter.sh stop
+    service nxfilter stop
   ```
 
 Contributing
