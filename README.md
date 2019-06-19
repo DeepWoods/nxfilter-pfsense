@@ -1,7 +1,7 @@
 nxfilter-pfsense
 =============
 
-A script that installs NxFilter software on pfSense
+A script that installs NxFilter software on pfSense.  Derived from [unif-pfsense](https://github.com/gozoinks/unifi-pfsense) repository.
 
 Purpose
 -------
