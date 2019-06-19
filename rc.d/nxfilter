@@ -20,7 +20,8 @@ nxfilter_start()
   if checkyesno ${rcvar}; then
     echo "Starting NxFilter..."
     /usr/local/nxfilter/bin/startup.sh -d 
-    echo $! > $pidfile
+    sleep 1
+    echo `ps | grep 'nxd.jar' | grep -v grep | awk '{ print $1 }'` > $pidfile
   fi
 }
 
@@ -33,12 +34,12 @@ nxfilter_stop()
 
     while [ `pgrep -F $pidfile` ]; do
       echo -n "."
-      sleep 5
+      sleep 1
     done
 
     rm $pidfile
 
-    echo " stopped";
+    echo "OK stopped";
   else
     echo "NxFilter not running. No PID file found."
   fi
