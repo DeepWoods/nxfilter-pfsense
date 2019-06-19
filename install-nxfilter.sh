@@ -60,7 +60,7 @@ if [ -f /usr/local/etc/rc.d/nxfilter ]; then
 fi
 
 # Make sure nxd.jar isn't still running for some reason
-if [ $(ps ax | grep "/usr/local/nxfilter/nxd.jar" | grep -v grep) -ne 0 ]; then
+if [ ! -z "$(ps ax | grep "/usr/local/nxfilter/nxd.jar" | grep -v grep | awk '{ print $1 }')" ]; then
   echo -n "Killing nxd.jar process..."
   /bin/kill -15 `ps ax | grep "/usr/local/nxfilter/nxd.jar" | grep -v grep | awk '{ print $1 }'`
   echo " ok"
@@ -178,4 +178,4 @@ fi
 
 echo -n "Starting the NxFilter service..."
 /usr/sbin/service nxfilter start
-echo " All done!"
+echo "All done!"
