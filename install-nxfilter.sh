@@ -7,18 +7,18 @@ clear
 # The latest version of NxFilter:
 NXFILTER_VERSION=$1
 if [ -z "$NXFILTER_VERSION" ]; then
-  echo "Version not supplied, fetching latest"
+  echo "NxFilter version not supplied, checking nxfilter.org for the latest version..."
   NXFILTER_VERSION=$(
     curl -sL 'https://nxfilter.org/p3/download' -H 'X-Requested-With: XMLHttpRequest' | grep -Eo "(http|https)://pub.nxfilter.org/nxfilter-[a-zA-Z0-9./?=_-]*.zip" | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" 2>/dev/null
   )
 
   if ! $(echo "$NXFILTER_VERSION" | egrep -q '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'); then
     echo "Fetched version \"$NXFILTER_VERSION\" doesn't make sense"
-    echo "If that's correct, run this again with it as the first argument"
+    echo "If that's correct, run this script again with \"$NXFILTER_VERSION\" as the first argument:  sh install-nxfilter.sh \"$NXFILTER_VERSION\""
     exit 1
   fi
 
-  printf "Is version $NXFILTER_VERSION OK? [y/N] " && read RESPONSE
+  printf "OK to download and install NxFilter version $NXFILTER_VERSION ? [y/N] " && read RESPONSE
   case $RESPONSE in
     [Yy] ) ;;
     * ) exit 1;;
@@ -27,7 +27,7 @@ fi
 NXFILTER_SOFTWARE_URI="http://pub.nxfilter.org/nxfilter-${NXFILTER_VERSION}.zip"
 
 # service script
-SERVICE_SCRIPT_URI="https://raw.githubusercontent.com/DeepWoods/nxfilter-pfsense/master/rc.d/nxfilter"
+SERVICE_SCRIPT_URI="https://raw.githubusercontent.com/DeepWoods/nxfilter-pfsense/master/rc.d/nxfilter.sh"
 
 
 # If pkg-ng is not yet installed, bootstrap it:
@@ -53,9 +53,9 @@ FREEBSD_PACKAGE_URL="https://pkg.freebsd.org/${ABI}/latest/All/"
 FREEBSD_PACKAGE_LIST_URL="https://pkg.freebsd.org/${ABI}/latest/packagesite.txz"
 
 # Stop NxFilter if it's already running
-if [ -f /usr/local/etc/rc.d/nxfilter ]; then
+if [ -f /usr/local/etc/rc.d/nxfilter.sh ]; then
   echo -n "Stopping the NxFilter service..."
-  /usr/sbin/service nxfilter stop
+  /usr/sbin/service nxfilter.sh stop
   echo " ok"
 fi
 
@@ -160,11 +160,11 @@ echo " ok"
 
 # Fetch the service script from github:
 echo -n "Downloading service script..."
-/usr/bin/fetch -o /usr/local/etc/rc.d/nxfilter ${SERVICE_SCRIPT_URI}
+/usr/bin/fetch -o /usr/local/etc/rc.d/nxfilter.sh ${SERVICE_SCRIPT_URI}
 echo " ok"
 
 # add execute permissions
-chmod +x /usr/local/etc/rc.d/nxfilter
+chmod +x /usr/local/etc/rc.d/nxfilter.sh
 chmod +x /usr/local/nxfilter/bin/*.sh
 
 # Add the startup variable to rc.conf.local.
@@ -177,5 +177,5 @@ if [ ! -f /etc/rc.conf.local ] || [ $(grep -c nxfilter_enable /etc/rc.conf.local
 fi
 
 echo -n "Starting the NxFilter service..."
-/usr/sbin/service nxfilter start
+/usr/sbin/service nxfilter.sh start
 echo "All done!"
