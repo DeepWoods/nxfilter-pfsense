@@ -79,4 +79,4 @@ Resources
 - [NxFilter product information page](https://nxfilter.org/p3/)
 - [NxFilter downloads](https://nxfilter.org/p3/download/)
 - [NxFilter documentation and tutorial](https://nxfilter.org/tutorial.html)
-- [NxFilter support forum](https://groups.google.com/forum/?fromgroups=#!forum/nxfilter200)
+- [NxFilter support forum](https://www.reddit.com/r/nxfilter/)
