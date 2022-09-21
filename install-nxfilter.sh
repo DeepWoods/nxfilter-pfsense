@@ -102,7 +102,7 @@ tar vfx packagesite.pkg
 
 AddPkg () {
  	pkgname=$1
-  pkg unlock -yq $pkgname
+	pkg unlock -yq $pkgname
  	pkginfo=`grep "\"name\":\"$pkgname\"" packagesite.yaml`
  	pkgvers=`echo $pkginfo | pcregrep -o1 '"version":"(.*?)"' | head -1`
 	pkgurl="${FREEBSD_PACKAGE_URL}`echo $pkginfo | pcregrep -o1 '"path":"(.*?)"' | head -1`"
@@ -117,12 +117,13 @@ AddPkg () {
 	  #if [ "$pkgname" == "openjdk8" ]; then
 	  #  pkg unlock -yq snappyjava
 	  #  env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg delete snappyjava
-    #fi
-  fi
-  pkg lock -yq $pkgname
+    	  #fi
+  	fi
+	pkg lock -yq $pkgname
 }
 
 #Add the following Packages for installation or reinstallation (if something was removed)
+AddPkg brotli
 AddPkg png
 AddPkg freetype2
 AddPkg fontconfig
